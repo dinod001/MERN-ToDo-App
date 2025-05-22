@@ -88,7 +88,7 @@ const App = () => {
 
   //return
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-200 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-800 via-indigo-900 to-slate-700 flex items-center justify-center p-6">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg p-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
           Task Manager
