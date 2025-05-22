@@ -1,10 +1,10 @@
 import express from "express";
 import ToDo from "../models/ToDo.models.mjs";
 
-const router = express.Router();
+const Todorouter = express.Router();
 
 //get all Todos
-router.get("/", async (req, res) => {
+Todorouter.get("/", async (req, res) => {
   try {
     const toDos = await ToDo.find();
     return res.status(200).json(toDos);
@@ -16,13 +16,13 @@ router.get("/", async (req, res) => {
 });
 
 //add new Todo
-router.post("/", async (req, res) => {
+Todorouter.post("/", async (req, res) => {
   const newTodo = new ToDo({
     text: req.body.text,
   });
 
   try {
-    const newToDo = await ToDo.save(newTodo);
+    const newToDo = await ToDo.create(newTodo);
     res.status(201).json(newToDo);
   } catch (error) {
     console.log(error);
@@ -31,20 +31,20 @@ router.post("/", async (req, res) => {
 });
 
 //update Todo
-router.patch("/:id", async (req, res) => {
+Todorouter.patch("/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const toDo = await ToDo.findById(id);
     if (!toDo) return res.status(404).json({ message: "Todo not found" });
     if (req.body.text !== undefined) {
-      toDo.text = eq.body.text;
+      toDo.text = req.body.text;
     }
     if (req.body.completed !== undefined) {
       toDo.completed = req.body.completed;
     }
 
     const updatdTodo = toDo.save();
-    return res.json(updatdTodo);
+    return res.json(toDo);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -52,7 +52,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 //delete todo
-router.delete("/:id", async (req, res) => {
+Todorouter.delete("/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const deletedTodo = await ToDo.findByIdAndDelete(id);
@@ -62,3 +62,5 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+export default Todorouter;

@@ -1,14 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.mjs";
+import Todorouter from "./routes/toDo.routes.mjs";
 
 dotenv.config();
 
 const server = express();
 
-server.get("/", (req, res) => {
-  res.send("Server is ready");
-});
+server.use(express.json());
+server.use("/api/todos", Todorouter);
 
 server.listen(5000, () => {
   connectDB();
