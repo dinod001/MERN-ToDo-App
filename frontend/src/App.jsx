@@ -71,6 +71,21 @@ const App = () => {
     }
   };
 
+  //set completed
+  const complete = async (id) => {
+    let response = null;
+    try {
+      const todo = todos.find((t) => t._id === id);
+      response = await axios.patch(`api/todos/${id}`, {
+        completed: !todo.completed,
+      });
+      console.log(response);
+      setTodos(todos.map((todo) => (todo._id === id ? response.data : todo)));
+    } catch (error) {
+      console.log("Error adding todo ", error);
+    }
+  };
+
   //return
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-200 flex items-center justify-center p-6">
