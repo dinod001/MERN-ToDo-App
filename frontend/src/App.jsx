@@ -60,9 +60,20 @@ const App = () => {
     }
   };
 
+  //delete method
+  const deleteTodo = async (id) => {
+    try {
+      const response = await axios.delete(`api/todos/${id}`);
+      console.log(response);
+      setTodos(todos.filter((todo) => todo._id !== id));
+    } catch (error) {
+      console.log("Error adding todo ", error);
+    }
+  };
+
   //return
   return (
-    <div className="min-h-screen bg-gradient-to-br from gray-50 to-gray-800 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-200 flex items-center justify-center p-6">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg p-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
           Task Manager
@@ -123,6 +134,7 @@ const App = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-x-4">
                           <button
+                            onClick={() => complete(todo._id)}
                             className={`h-6 w-6 border rounded-full flex items-center justify-center ${
                               todo.completed
                                 ? "bg-green-500 border-green-500"
@@ -142,7 +154,10 @@ const App = () => {
                           >
                             <MdModeEditOutline />
                           </button>
-                          <button className="p-2 text-red-500 hover:text-red-700 rounded-lg hover:bg-blue-50 duration-200">
+                          <button
+                            onClick={() => deleteTodo(todo._id)}
+                            className="p-2 text-red-500 hover:text-red-700 rounded-lg hover:bg-blue-50 duration-200"
+                          >
                             <FaTrash />
                           </button>
                         </div>
