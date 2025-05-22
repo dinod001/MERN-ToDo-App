@@ -147,10 +147,10 @@ const App = () => {
                   ) : (
                     <div>
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-x-4">
+                        <div className="flex items-center gap-x-4 overflow-hidden">
                           <button
                             onClick={() => complete(todo._id)}
-                            className={`h-6 w-6 border rounded-full flex items-center justify-center ${
+                            className={` flex-shrink-0 h-6 w-6 border rounded-full flex items-center justify-center ${
                               todo.completed
                                 ? "bg-green-500 border-green-500"
                                 : "border-gray-300 hover:border-blue-400"
@@ -158,7 +158,7 @@ const App = () => {
                           >
                             {todo.completed && <MdOutlineDone />}
                           </button>
-                          <span className="text-gray-800 font-medium">
+                          <span className="text-gray-800 truncate font-medium">
                             {todo.text}
                           </span>
                         </div>
